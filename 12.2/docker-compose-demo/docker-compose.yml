@@ -1,0 +1,57 @@
+# Docker image for TYPO3 CMS
+# Copyright (C) 2023  Sebastian P. (IoCron) 
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+version: "3"
+
+services: 
+    typo3: 
+        build: .
+        image: iocron/typo3:latest
+        restart: unless-stopped
+        networks: 
+            - typo3network
+        ports: 
+            - "80:80"
+        volumes:
+            - "./httpdocs/fileadmin:/var/www/html/fileadmin"
+            - "./httpdocs/typo3conf:/var/www/html/typo3conf"
+            - "./httpdocs/uploads:/var/www/html/uploads"
+            # - "./httpdocs/typo3temp:/var/www/html/typo3temp" # typo3 might not work afterwards
+        env_file: 
+            - ".env_t3"
+        # command / entrypoint chown not properly working, because container can't start for some reason?!?!
+        # WORKAROUND: Currently needs to be fixed by hand after using "docker-compose up -d", e.g.: 
+        #   1. docker-compose run -u root typo3 bash
+        #   2. chown www-data:www-data /var/www/html/fileadmin /var/www/html/typo3conf /var/www/html/uploads /var/www/html/typo3temp
+        # entrypoint: ["sh", "-c", "chown www-data:www-data /var/www/html/fileadmin /var/www/html/typo3conf /var/www/html/uploads /var/www/html/typo3temp"]
+        # command: ["/bin/bash", "-c", "chown www-data: /var/www/html/fileadmin /var/www/html/typo3conf /var/www/html/uploads /var/www/html/typo3temp"]
+
+    db: 
+        image: mariadb:10.6
+        #image: bitnami/mariadb:latest
+        restart: unless-stopped
+        ports: 
+            - "32778:3306"
+        volumes: 
+            - "./database/mysql:/var/lib/mysql"
+            #- "./database/mysql:/bitnami/mariadb"
+        env_file: 
+            - ".env_db"
+        networks: 
+            - typo3network
+            
+networks: 
+    typo3network: 
