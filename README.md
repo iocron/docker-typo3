@@ -8,10 +8,15 @@ This repository contains build instructions for a simple TYPO3 Docker image.
 
 **Note** that this image is not intended for production usage (yet). It's goal is to provide users an easy quickstart for working with TYPO3.
 
-Usage
+## Usage Docker-Compose
+
 -----
 
-For a full working docker-compose demo, please use the demo folder 12.3/docker-compose-demo or higher (recommended). You can skip the steps below if you are using this method. 
+For a full working docker-compose demo, please use the demo folder ./docker-compose-typo3-demo and run `docker-compose up -d` inside the folder. You can skip the steps of the docker run examples if you are using this docker-compose method.  
+
+-----
+
+## Usage Docker Run
 
 This container does not ship a database management system; which means you'll have to create your own database container. The upside of this is that you're not bound to any specific version of MySQL or MariaDB and can even use a PostgreSQL database if you like.
 
@@ -59,8 +64,9 @@ Available tags
 
 This repository offers the following image tags:
 
-- `latest` maps to the latest available LTS version (currently, latest `12.3.*`)
-- `12.2` and `12` for the latest available version from the `12.*` respectively `12.2.*` branch.
+- `latest` maps to the latest available LTS version (currently, latest `12.4.*`)
+- `12.4` and `12` for the latest available version from the `12.*` respectively `12.4.*` branch.
+- `12.3` and `12` for the latest available version from the `12.*` respectively `12.3.*` branch.
 - `11.5` and `11` for the latest available version from the `11.*` respectively `11.5.*` branch.
 - `10.4` and `10` for the latest available version from the `10.*` respectively `10.4.*` branch.
 - `9.5` and `9` for the latest available version from the `9.*` respectively `9.5.*` branch.
