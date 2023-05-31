@@ -1,2 +1,4 @@
 **/docker-compose-demo/httpdocs
 **/docker-compose-demo/database
+**/docker-compose-typo3-demo/httpdocs
+**/docker-compose-typo3-demo/database

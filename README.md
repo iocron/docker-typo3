@@ -10,8 +10,6 @@ This repository contains build instructions for a simple TYPO3 Docker image.
 
 ## Usage Docker-Compose
 
------
-
 For a full working docker-compose demo, please use the demo folder ./docker-compose-typo3-demo and run `docker-compose up -d` inside the folder. You can skip the steps of the docker run examples if you are using this docker-compose method.  
 
 -----
